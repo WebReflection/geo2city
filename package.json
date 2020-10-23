@@ -1,0 +1,24 @@
+{
+  "name": "geo2city",
+  "version": "0.0.0",
+  "description": "Basic offline reverse geocode",
+  "main": "./cjs/index.js",
+  "scripts": {
+    "import": "bash ./sqlite/import.sh",
+    "test": "node test/index.js",
+    "postinstall": "node ./cjs/extract.js"
+  },
+  "keywords": [
+    "sqlite",
+    "offline",
+    "reverse",
+    "geocode"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "ISC",
+  "dependencies": {
+    "extract-zip": "^2.0.1",
+    "sqlite-tag": "^1.1.0",
+    "sqlite3": "^5.0.0"
+  }
+}

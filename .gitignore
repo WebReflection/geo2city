@@ -1,0 +1,5 @@
+.DS_Store
+.nyc_output
+node_modules/
+ip2location-lite.db5
+ip2location-lite.db5.zip
