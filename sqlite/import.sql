@@ -24,7 +24,8 @@ INSERT INTO ip2location_geo SELECT latitude_value, longitude_value FROM ip2locat
 
 CREATE TABLE ip2location_iso2 (
   id INTEGER NOT NULL PRIMARY KEY,
-  iso2 CHAR(2)
+  iso2 CHAR(2),
+  flag VARCHAR(4)
 );
 
 INSERT INTO ip2location_iso2 (iso2) SELECT DISTINCT(country_code) FROM ip2location_csv;

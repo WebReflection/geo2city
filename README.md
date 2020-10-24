@@ -15,11 +15,13 @@ reverse([ 52.52437, 13.41053 ]).then(console.log);
   latitude: 52.52437,
   longitude: 13.41053,
   iso2: 'DE',
+  flag: '🇩🇪',
   country: 'Germany',
   region: 'Berlin',
   city: 'Berlin'
 }
 ```
+
 
 
 ## Details
@@ -33,11 +35,13 @@ This module takes a different approach, it ships a pre-optimized *SQLite* databa
 The same is for *latitude* and *longitude* searches, the distance is granted to be super accurate, just a best effort to retrieve anny closer location.
 
 
+
 ## Performance
 
 Both *search* and *reverse* takes *~50ms* to provide a result, if any, on an i7 laptop.
 
 As this project is meant to run mostly in *IoT* devices, I find performance more than acceptable, but of course if you have any trick to speed things up even more, without bloating the distributed size, I'd be more than happy to receive a PR.
+
 
 
 ## Credits

@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/WebReflection/geo2city/issues"
   },
-  "homepage": "https://github.com/WebReflection/geo2city#readme"
+  "homepage": "https://github.com/WebReflection/geo2city#readme",
+  "devDependencies": {
+    "country-coder": "^2.1.0"
+  }
 }

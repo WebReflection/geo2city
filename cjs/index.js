@@ -13,6 +13,7 @@ exports.reverse = ([lat, long]) => get`
     ip2location.latitude,
     ip2location.longitude,
     ip2location_iso2.iso2,
+    ip2location_iso2.flag,
     ip2location_country.country,
     ip2location_region.region,
     ip2location_city.city
