@@ -6,11 +6,11 @@ A basic, portable, offline search and reverse geocode, based on [IP2Location™ 
 import {search, reverse} from 'geo2xity';
 
 search('Berlin, Germany').then(console.log);
-// result
+// result (undefined if not found)
 [ 52.52437, 13.41053 ]
 
 reverse([ 52.52437, 13.41053 ]).then(console.log);
-// result
+// result (undefined if not found)
 {
   latitude: 52.52437,
   longitude: 13.41053,
