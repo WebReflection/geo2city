@@ -1,13 +1,13 @@
 const {reverse, search} = require('../cjs');
 
 console.time('reverse');
-reverse([51.509865, -0.118092]).then(result => {
+reverse([51.5072, -0.1275]).then(result => {
   console.timeEnd('reverse');
   console.log(result);
 });
 
 console.time('search');
-search('Berlin, Germany').then(result => {
+search('London, UK').then(result => {
   console.timeEnd('search');
   console.log(result);
 }, Object);

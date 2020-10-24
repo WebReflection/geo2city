@@ -5,44 +5,45 @@ const {join} = require('path');
 const {Database} = require('sqlite3');
 const SQLiteTag = require('sqlite-tag');
 
-const db = new Database(join(__dirname, '..', 'ip2location-lite.db5'));
+const db = new Database(join(__dirname, '..', 'worldcities.db'));
 const {get} = SQLiteTag(db);
 
 exports.reverse = ([lat, long]) => get`
   SELECT
-    ip2location.latitude,
-    ip2location.longitude,
-    ip2location_iso2.iso2,
-    ip2location_iso2.flag,
-    ip2location_country.country,
-    ip2location_region.region,
-    ip2location_city.city
+    worldcities.latitude,
+    worldcities.longitude,
+    worldcities_country.iso2,
+    worldcities_country.flag,
+    worldcities_country.country,
+    worldcities_city.city
   FROM
-    ip2location,
-    ip2location_iso2,
-    ip2location_country,
-    ip2location_region,
-    ip2location_city
+    worldcities,
+    worldcities_country,
+    worldcities_city
   WHERE
-    ip2location.iso2 = ip2location_iso2.id
+    worldcities.country = worldcities_country.id
   AND
-    ip2location.country = ip2location_country.id
-  AND
-    ip2location.region = ip2location_region.id
-  AND
-    ip2location.city = ip2location_city.id
+    worldcities.city = worldcities_city.id
   ORDER BY (
-    (${lat} - ip2location.latitude) * (${lat} - ip2location.latitude) +
-    (${long} - ip2location.longitude) * (${long} - ip2location.longitude)
+    (${lat} - worldcities.latitude) * (${lat} - worldcities.latitude) +
+    (${long} - worldcities.longitude) * (${long} - worldcities.longitude)
   )
   LIMIT 1
 `;
 
-exports.search = search => get`
-  SELECT latitude, longitude FROM search
-  WHERE place MATCH ${
-    search.trim().replace(/\s*,\s*/g, ' ').replace(/\s{2,}/g, ' ')
-  }
-  ORDER BY rank
-  LIMIT 1
-`.then(geo => geo && [geo.latitude, geo.longitude]);
+exports.search = search => {
+  search = search.replace(/\s*,\s*/g, ' ').trim();
+  return get`
+    SELECT
+      latitude, longitude
+    FROM
+      search
+    WHERE
+      full = ${search}
+    OR
+      short = ${search}
+    ORDER BY
+      rank
+    LIMIT 1
+  `.then(geo => geo && [geo.latitude, geo.longitude]);
+};

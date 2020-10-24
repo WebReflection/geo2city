@@ -1,106 +1,64 @@
-CREATE TABLE ip2location_csv (
-  ip_from INT(10),
-  ip_to INT(10),
-  country_code CHAR(2),
-  country_name VARCHAR(64),
-  region_name VARCHAR(128),
-  city_name VARCHAR(128),
-  latitude_value FLOAT,
-  longitude_value FLOAT
+CREATE TABLE worldcities_csv (
+  city VARCHAR(128),
+  city_ascii VARCHAR(128),
+  lat FLOAT,
+  lng FLOAT,
+  country VARCHAR(64),
+  iso2 CHAR(2),
+  iso3 CHAR(3),
+  admin_name VARCHAR(128),
+  capital VARCHAR(128),
+  population INTEGER,
+  id INTEGER
 );
 
--- https://lite.ip2location.com/database/ip-country-region-city-latitude-longitude
+-- https://simplemaps.com/data/world-cities
 .mode csv
-.import ./sqlite/IP2LOCATION-LITE-DB5.CSV ip2location_csv
+.import ./worldcities.csv worldcities_csv
 
-DELETE FROM ip2location_csv WHERE country_code = "-" OR country_name = "-";
-
-CREATE TABLE ip2location_geo (
-  latitude_value FLOAT,
-  longitude_value FLOAT
-);
-
-INSERT INTO ip2location_geo SELECT latitude_value, longitude_value FROM ip2location_csv GROUP BY latitude_value, longitude_value;
-
-CREATE TABLE ip2location_iso2 (
+CREATE TABLE worldcities_country (
   id INTEGER NOT NULL PRIMARY KEY,
   iso2 CHAR(2),
-  flag VARCHAR(4)
-);
-
-INSERT INTO ip2location_iso2 (iso2) SELECT DISTINCT(country_code) FROM ip2location_csv;
-
-CREATE TABLE ip2location_country (
-  id INTEGER NOT NULL PRIMARY KEY,
+  flag VARCHAR(4),
   country VARCHAR(64)
 );
 
-INSERT INTO ip2location_country (country) SELECT DISTINCT(country_name) FROM ip2location_csv;
+INSERT INTO worldcities_country (iso2, country) SELECT DISTINCT(worldcities_csv.iso2), worldcities_csv.country FROM worldcities_csv;
 
-CREATE TABLE ip2location_region (
-  id INTEGER NOT NULL PRIMARY KEY,
-  region VARCHAR(128)
-);
-
-INSERT INTO ip2location_region (region) SELECT DISTINCT(region_name) FROM ip2location_csv;
-
-CREATE TABLE ip2location_city (
+CREATE TABLE worldcities_city (
   id INTEGER NOT NULL PRIMARY KEY,
   city VARCHAR(128)
 );
 
-INSERT INTO ip2location_city (city) SELECT DISTINCT(city_name) FROM ip2location_csv;
+INSERT INTO worldcities_city (city) SELECT DISTINCT(worldcities_csv.city) FROM worldcities_csv;
 
--- UPDATE ip2location_city SET city = "London" WHERE city = "Waterloo";
-
-CREATE TABLE ip2location (
+CREATE TABLE worldcities (
   latitude FLOAT,
   longitude FLOAT,
-  iso2 INTEGER,
   country INTEGER,
-  region INTEGER,
   city INTEGER
 );
 
-INSERT INTO ip2location SELECT
-    ip2location_geo.latitude_value,
-    ip2location_geo.longitude_value,
-    ip2location_iso2.id,
-    ip2location_country.id,
-    ip2location_region.id,
-    ip2location_city.id
+INSERT INTO worldcities (latitude, longitude, country, city) SELECT
+    worldcities_csv.lat,
+    worldcities_csv.lng,
+    worldcities_country.id,
+    worldcities_city.id
   FROM
-    ip2location_geo,
-    ip2location_iso2,
-    ip2location_country,
-    ip2location_region,
-    ip2location_city,
-    ip2location_csv
+    worldcities_country,
+    worldcities_city,
+    worldcities_csv
   WHERE
-    ip2location_geo.latitude_value = ip2location_csv.latitude_value
+    worldcities_country.country = worldcities_csv.country
   AND
-    ip2location_geo.longitude_value = ip2location_csv.longitude_value
-  AND
-    ip2location_iso2.iso2 = ip2location_csv.country_code
-  AND
-    ip2location_country.country = ip2location_csv.country_name
-  AND
-    ip2location_region.region = ip2location_csv.region_name
-  AND
-    ip2location_city.city = ip2location_csv.city_name
-  GROUP BY
-    ip2location_csv.latitude_value, ip2location_csv.longitude_value;
+    worldcities_city.city = worldcities_csv.city
 ;
 
-SELECT COUNT(*) FROM ip2location_csv;
-SELECT COUNT(*) FROM ip2location;
-SELECT COUNT(*) FROM ip2location_geo;
-SELECT COUNT(*) FROM ip2location_iso2;
-SELECT COUNT(*) FROM ip2location_country;
-SELECT COUNT(*) FROM ip2location_region;
-SELECT COUNT(*) FROM ip2location_city;
+SELECT COUNT(*) FROM worldcities_csv;
+SELECT COUNT(*) FROM worldcities;
+SELECT COUNT(*) FROM worldcities_city;
+SELECT COUNT(*) FROM worldcities_country;
 
-DROP TABLE ip2location_geo;
-DROP TABLE ip2location_csv;
+DROP TABLE worldcities_csv;
 
 .exit
