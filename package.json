@@ -4,7 +4,7 @@
   "description": "A basic, portable, offline search and reverse geocode",
   "main": "./cjs/index.js",
   "scripts": {
-    "import": "bash ./sqlite/import.sh",
+    "import": "bash ./sqlite/import.sh ~/Downloads/IP2LOCATION-LITE-DB5.CSV.ZIP",
     "test": "node test/index.js",
     "postinstall": "node ./cjs/extract.js"
   },

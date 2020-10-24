@@ -50,6 +50,8 @@ CREATE TABLE ip2location_city (
 
 INSERT INTO ip2location_city (city) SELECT DISTINCT(city_name) FROM ip2location_csv;
 
+-- UPDATE ip2location_city SET city = "London" WHERE city = "Waterloo";
+
 CREATE TABLE ip2location (
   latitude FLOAT,
   longitude FLOAT,
