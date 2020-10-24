@@ -28,7 +28,7 @@ Geo search and reverse geocode is complicated and expensive, and it usually requ
 
 This module takes a different approach, it ships a pre-optimized *SQLite* database which, once zipped, is no more than 3MB (240MB once unzipped), and it can be used offline.
 
-**Bear in mind** the data it includes is not super accurate, and the fields in it might not fully match cities. As example, *London*, in *UK*, is not listed, because *IP2Location™ LITE* includes more accurate details such as *Watherloo*, or other parts of the big city, but many other places *should* be easy to find.
+**Bear in mind** the data it includes is not super accurate, and the fields in it might not fully match cities. As example, *London*, in *UK*, is not listed, because *IP2Location™ LITE* includes more accurate details such as *Waterloo*, or other parts of the big city, but many other places *should* be easy to find.
 
 The same is for *latitude* and *longitude* searches, the distance is granted to be super accurate, just a best effort to retrieve anny closer location.
 
