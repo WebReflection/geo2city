@@ -5,3 +5,4 @@ node_modules/
 sqlite/
 test/
 ip2location-lite.db5
+!ip2location-lite.db5.zip

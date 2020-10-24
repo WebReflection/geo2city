@@ -25,7 +25,12 @@ rm ./sqlite/IP2LOCATION-LITE-DB5.CSV
 cd ./sqlite
 zip ./ip2location-lite.db5.zip -9 ./ip2location-lite.db5
 
-rm ./ip2location-lite.db5
-mv ./ip2location-lite.db5.zip ../
+mv ./ip2location-lite* ../
 
 cd ..
+
+npm run test
+
+sleep 1
+
+rm ./ip2location-lite.db5

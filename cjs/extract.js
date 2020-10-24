@@ -20,7 +20,12 @@ extract(zip, {dir}).then(() => {
     (query`CREATE VIRTUAL TABLE search USING FTS5(place, latitude, longitude)`).then(() => {
       (query`
         INSERT INTO search(place, latitude, longitude) SELECT
-          (ip2location_iso2.iso2 || ', ' || ip2location_country.country || ', ' || ip2location_region.region || ', ' || ip2location_city.city),
+          (
+            ip2location_city.city || ', ' ||
+            ip2location_region.region || ', ' ||
+            ip2location_country.country || ', ' ||
+            ip2location_iso2.iso2
+          ),
           ip2location.latitude,
           ip2location.longitude
         FROM

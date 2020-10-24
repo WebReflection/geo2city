@@ -10,4 +10,4 @@ console.time('search');
 search('Berlin, Germany').then(result => {
   console.timeEnd('search');
   console.log(result);
-});
+}, Object);

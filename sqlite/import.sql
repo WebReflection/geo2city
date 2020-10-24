@@ -97,7 +97,7 @@ SELECT COUNT(*) FROM ip2location_country;
 SELECT COUNT(*) FROM ip2location_region;
 SELECT COUNT(*) FROM ip2location_city;
 
-DROP TABLE ip2location_csv;
 DROP TABLE ip2location_geo;
+DROP TABLE ip2location_csv;
 
 .exit
