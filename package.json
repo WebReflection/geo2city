@@ -1,7 +1,7 @@
 {
   "name": "geo2city",
   "version": "0.0.2",
-  "description": "Basic offline reverse geocode",
+  "description": "A basic, portable, offline search and reverse geocode",
   "main": "./cjs/index.js",
   "scripts": {
     "import": "bash ./sqlite/import.sh",

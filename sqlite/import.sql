@@ -13,7 +13,7 @@ CREATE TABLE ip2location_csv (
 .mode csv
 .import ./sqlite/IP2LOCATION-LITE-DB5.CSV ip2location_csv
 
-DELETE FROM ip2location_csv WHERE country_code = "-";
+DELETE FROM ip2location_csv WHERE country_code = "-" OR country_name = "-";
 
 CREATE TABLE ip2location_geo (
   latitude_value FLOAT,
