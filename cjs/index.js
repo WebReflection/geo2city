@@ -13,6 +13,7 @@ exports.reverse = ([lat, long]) => get`
     worldcities.latitude,
     worldcities.longitude,
     worldcities_country.iso2,
+    worldcities_country.iso3,
     worldcities_country.flag,
     worldcities_country.country,
     worldcities_city.city
@@ -31,19 +32,9 @@ exports.reverse = ([lat, long]) => get`
   LIMIT 1
 `;
 
-exports.search = search => {
-  search = search.replace(/\s*,\s*/g, ' ').trim();
-  return get`
-    SELECT
-      latitude, longitude
-    FROM
-      search
-    WHERE
-      full = ${search}
-    OR
-      short = ${search}
-    ORDER BY
-      rank
-    LIMIT 1
-  `.then(geo => geo && [geo.latitude, geo.longitude]);
-};
+exports.search = search => get`
+  SELECT latitude, longitude FROM search
+  WHERE place MATCH ${search.replace(/\s*,\s*|\s+/g, ' ').trim()}
+  ORDER BY rank
+  LIMIT 1
+`.then(geo => geo && [geo.latitude, geo.longitude]);

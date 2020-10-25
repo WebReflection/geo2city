@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/WebReflection/geo2city#readme",
   "devDependencies": {
-    "country-coder": "^2.1.0"
+    "@ideditor/country-coder": "^4.0.0"
   }
 }

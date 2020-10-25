@@ -1,23 +1,23 @@
 # geo2city
 
-A basic, portable, offline search and reverse geocode, based on [IP2Location™ LITE](https://lite.ip2location.com/database/ip-country-region-city-latitude-longitude) data.
+A tiny, portable, offline search and reverse geocode, based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
 
 ```js
-import {search, reverse} from 'geo2xity';
+import {search, reverse} from 'geo2city';
 
 search('Berlin, Germany').then(console.log);
 // result (undefined if not found)
-[ 52.52437, 13.41053 ]
+[ 52.5167, 13.3833 ]
 
 reverse([ 52.52437, 13.41053 ]).then(console.log);
 // result (undefined if not found)
 {
-  latitude: 52.52437,
-  longitude: 13.41053,
+  latitude: 52.5167,
+  longitude: 13.3833,
   iso2: 'DE',
+  iso3: 'DEU',
   flag: '🇩🇪',
   country: 'Germany',
-  region: 'Berlin',
   city: 'Berlin'
 }
 ```
@@ -28,26 +28,20 @@ reverse([ 52.52437, 13.41053 ]).then(console.log);
 
 Geo search and reverse geocode is complicated and expensive, and it usually requires some API or network access to be performed, with all usual limitations.
 
-This module takes a different approach, it ships a pre-optimized *SQLite* database which, once zipped, is no more than 3MB (240MB once unzipped), and it can be used offline.
-
-**Bear in mind** the data it includes is not super accurate, and the fields in it might not fully match cities. As example, *London*, in *UK*, is not listed, because *IP2Location™ LITE* includes more accurate details such as *Waterloo*, or other parts of the big city, but many other places *should* be easy to find.
-
-The same is for *latitude* and *longitude* searches, the distance is granted to be super accurate, just a best effort to retrieve anny closer location.
+This module takes a different approach, it ships a pre-optimized *SQLite* database which, once zipped, is no more than 700K (5MB once unzipped), and it can be used offline.
 
 
 
 ## Performance
 
-Both *search* and *reverse* takes *~50ms* to provide a result, if any, on an i7 laptop.
-
-As this project is meant to run mostly in *IoT* devices, I find performance more than acceptable, but of course if you have any trick to speed things up even more, without bloating the distributed size, I'd be more than happy to receive a PR.
+Both *search* and *reverse* takes *~10ms* to *~15ms* to provide a result, if any, on an i7 laptop.
 
 
 
-## Credits
+## Attribution
 
-As specified in *IP2Location™ LITE* page, any usage of their data should be explicitly credited via the following HTML:
+The database has [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and a backlink to [simplemaps.com](https://simplemaps.com/data/world-cities) should be provided, example:
 
 ```html
-This site or product includes IP2Location LITE data available from <a href="https://lite.ip2location.com">https://lite.ip2location.com</a>.
+Geo data by <a href="https://simplemaps.com/data/world-cities">simplemaps</a>
 ```

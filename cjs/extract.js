@@ -17,16 +17,14 @@ extract(zip, {dir}).then(() => {
     }
     const db = new Database(join(dir, worldcities));
     const {query} = SQLiteTag(db);
-    (query`CREATE VIRTUAL TABLE search USING FTS5(full, short, latitude, longitude)`).then(() => {
+    (query`CREATE VIRTUAL TABLE search USING FTS5(place, latitude, longitude)`).then(() => {
       (query`
-        INSERT INTO search(full, short, latitude, longitude) SELECT
+        INSERT INTO search(place, latitude, longitude) SELECT
           (
             worldcities_city.city || ' ' ||
+            worldcities_country.iso2 || ' ' ||
+            worldcities_country.iso3 || ' ' ||
             worldcities_country.country
-          ),
-          (
-            worldcities_city.city || ' ' ||
-            worldcities_country.iso2
           ),
           worldcities.latitude,
           worldcities.longitude

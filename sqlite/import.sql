@@ -19,11 +19,12 @@ CREATE TABLE worldcities_csv (
 CREATE TABLE worldcities_country (
   id INTEGER NOT NULL PRIMARY KEY,
   iso2 CHAR(2),
+  iso3 CHAR(3),
   flag VARCHAR(4),
   country VARCHAR(64)
 );
 
-INSERT INTO worldcities_country (iso2, country) SELECT DISTINCT(worldcities_csv.iso2), worldcities_csv.country FROM worldcities_csv;
+INSERT INTO worldcities_country (iso2, iso3, country) SELECT DISTINCT(worldcities_csv.iso2), worldcities_csv.iso3, worldcities_csv.country FROM worldcities_csv;
 
 CREATE TABLE worldcities_city (
   id INTEGER NOT NULL PRIMARY KEY,
