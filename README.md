@@ -31,17 +31,21 @@ Geo search and reverse geocode is complicated and expensive, and it usually requ
 This module takes a different approach, it ships a pre-optimized *SQLite* database which, once zipped, is no more than 700K (5MB once unzipped), and it can be used offline.
 
 
+### Features
 
-## Performance
-
-Both *search* and *reverse* takes *~10ms* to *~15ms* to provide a result, if any, on an i7 laptop.
+  * *26563* cities and related countries
+  * country name, *iso2*, *iso3*, and *emoji* flag, per each country
+  * reverse search via `geo2city.reverse([latitude, longitude])` with *nearest city* approximation
+  * full text search via `geo2city.search('City, Country Name or ISO')` with highest ranked result
 
 
 
 ## Attribution
 
-The database has [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and a backlink to [simplemaps.com](https://simplemaps.com/data/world-cities) should be provided, example:
+The *World Cities Database* has a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license and requires a backlink to [simplemaps.com](https://simplemaps.com/data/world-cities), example:
 
 ```html
 Geo data by <a href="https://simplemaps.com/data/world-cities">simplemaps</a>
 ```
+
+The [social media image](https://simplemaps.com/static/img/data/world-cities/viz/basic.png) is also readapted from simplemaps.

@@ -34,7 +34,7 @@ exports.reverse = ([lat, long]) => get`
 
 exports.search = search => get`
   SELECT latitude, longitude FROM search
-  WHERE place MATCH ${search.replace(/\s*,\s*|\s+/g, ' ').trim()}
+  WHERE place MATCH ${search.split(/\s*,\s*/).join(' OR ').trim()}
   ORDER BY rank
   LIMIT 1
 `.then(geo => geo && [geo.latitude, geo.longitude]);
