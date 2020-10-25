@@ -1,6 +1,6 @@
 # geo2city
 
-A tiny, portable, offline search and reverse geocode, based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
+A tiny, portable, offline search and reverse geocode, also used in [Life Diary ❤️](https://github.com/WebReflection/life-diary#readme), based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
 
 ```js
 import {search, reverse} from 'geo2city';
@@ -49,3 +49,15 @@ Geo data by <a href="https://simplemaps.com/data/world-cities">simplemaps</a>
 ```
 
 The [social media image](https://simplemaps.com/static/img/data/world-cities/viz/basic.png) is also readapted from simplemaps.
+
+
+
+## About Pro / Comprehensive Database
+
+Unfortunately, these versions of the database don't allow redistribution, but if you fork this project and run `npm i` after, then you change `worldcities.csv` with the *Pro* or *Comprehensive* database *CSV* version, and then you run `npm run import` before running `npm run postinstall`, you should have a working copy of *geo2city* pointing at a much more accurate dataset.
+
+The *country* table would likely be the same, but the *city* one should contain all millions cities offered by *simplemaps*.
+
+To succeed, you need any *Linux* or *macOS* with *sqlite3* and *zip* installed, however, I am not planning to support these versions, or provide help with these, because these are out of scope for this project.
+
+**P.S.** as I haven't tried myself, it is possible that the *worldcities_csv* table in `sqlite/import.sql` should be modified to contain all fields provided by the bigger `.csv` file, but as long as field names are the same for the insterested data, everything should go rather smoothly.
