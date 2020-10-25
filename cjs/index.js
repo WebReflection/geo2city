@@ -8,7 +8,27 @@ const SQLiteTag = require('sqlite-tag');
 const db = new Database(join(__dirname, '..', 'worldcities.db'));
 const {get} = SQLiteTag(db);
 
-exports.reverse = ([lat, long]) => get`
+/** @typedef {number} latitude */
+/** @typedef {number} longitude */
+/** @typedef {Array<latitude, longitude>} Coordinates */
+/** @typedef {{
+ *    latitude: latitude,
+ *    longitude: longitude,
+ *    iso2: string, iso3: string,
+ *    flag: string,
+ *    country: string,
+ *    city: string
+ *  }} GeoData
+ */
+
+
+/**
+ * Given an array of latitude and longitude numbers, returns city related data,
+ * if any, or undefined.
+ * @param {Coordinates} coordinates coordinates to reverse geocode
+ * @return {Promise<GeoData | void>}
+ */
+exports.reverse = ([latitude, longitude]) => get`
   SELECT
     worldcities.latitude,
     worldcities.longitude,
@@ -26,12 +46,18 @@ exports.reverse = ([lat, long]) => get`
   AND
     worldcities.city = worldcities_city.id
   ORDER BY (
-    (${lat} - worldcities.latitude) * (${lat} - worldcities.latitude) +
-    (${long} - worldcities.longitude) * (${long} - worldcities.longitude)
+    (${latitude} - worldcities.latitude) * (${latitude} - worldcities.latitude) +
+    (${longitude} - worldcities.longitude) * (${longitude} - worldcities.longitude)
   )
   LIMIT 1
 `;
 
+/**
+ * Given a generic search string, optionally comma separated, returns the
+ * nearest city coordinates, if any, or undefined.
+ * @param {string} search string to retrieve the nearest city coordinates
+ * @return {Promise<Coordinates | void>}
+ */
 exports.search = search => get`
   SELECT latitude, longitude FROM search
   WHERE place MATCH ${search.split(/\s*,\s*/).join(' OR ').trim()}
