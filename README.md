@@ -60,4 +60,4 @@ The *country* table would likely be the same, but the *city* one should contain 
 
 To succeed, you need any *Linux* or *macOS* with *sqlite3* and *zip* installed, however, I am not planning to support these versions, or provide help with these, because these are out of scope for this project.
 
-**P.S.** as I haven't tried myself, it is possible that the *worldcities_csv* table in `sqlite/import.sql` should be modified to contain all fields provided by the bigger `.csv` file, but as long as field names are the same for the insterested data, everything should go rather smoothly.
+**P.S.** as I haven't tried myself, it is possible that the *worldcities_csv* table in `sqlite/import.sql` should be modified to contain all fields provided by the bigger `.csv` file, but as long as field names are the same for the interested data, everything should go rather smoothly.
