@@ -2,4 +2,3 @@
 .nyc_output
 node_modules/
 worldcities.db
-!worldcities.db.zip

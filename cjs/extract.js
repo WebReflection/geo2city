@@ -17,8 +17,8 @@ extract(zip, {dir}).then(() => {
     }
     const db = new Database(join(dir, worldcities));
     const {query} = SQLiteTag(db);
-    (query`CREATE VIRTUAL TABLE search USING FTS5(place, latitude, longitude)`).then(() => {
-      (query`
+    query`CREATE VIRTUAL TABLE search USING FTS5(place, latitude, longitude)`.then(() => {
+      query`
         INSERT INTO search(place, latitude, longitude) SELECT
           (
             worldcities_city.city || ' ' ||
@@ -36,7 +36,7 @@ extract(zip, {dir}).then(() => {
           worldcities_country.id = worldcities.country
         AND
           worldcities_city.id = worldcities.city
-      `).then(() => db.close());
+      `.then(() => db.close());
     });
   });
 });
