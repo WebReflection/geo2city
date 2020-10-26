@@ -15,7 +15,7 @@
     "geocode"
   ],
   "author": "Andrea Giammarchi",
-  "license": "(ISC OR CC-BY-4.0)",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "extract-zip": "^2.0.1",
     "sqlite-tag": "^1.1.0",
