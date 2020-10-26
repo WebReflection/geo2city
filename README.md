@@ -1,5 +1,7 @@
 # geo2city
 
+[![Downloads](https://img.shields.io/npm/dm/geo2city.svg)](https://www.npmjs.com/package/geo2city) [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC) [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 A tiny, portable, offline search and reverse geocode, also used in [Life Diary ❤️](https://github.com/WebReflection/life-diary#readme), based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
 
 ```js
