@@ -14,7 +14,8 @@ const {get} = SQLiteTag(db);
 /** @typedef {{
  *    latitude: latitude,
  *    longitude: longitude,
- *    iso2: string, iso3: string,
+ *    iso2: string,
+ *    iso3: string,
  *    flag: string,
  *    country: string,
  *    city: string
