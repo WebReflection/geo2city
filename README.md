@@ -30,7 +30,7 @@ reverse([ 52.52437, 13.41053 ]).then(console.log);
 
 Geo search and reverse geocode is complicated and expensive, and it usually requires some API or network access to be performed, with all usual limitations.
 
-This module takes a different approach, it ships a pre-optimized *SQLite* database which, once zipped, is no more than 700K (5MB once unzipped), and it can be used offline.
+This module takes a different approach, [it ships a pre-optimized *SQLite* database](https://webreflection.medium.com/shipping-npm-modules-with-sqlite-4f0e9eccc3c1) which, once zipped, is no more than 700K (5MB once unzipped), and it can be used offline.
 
 
 ### Features
