@@ -1,6 +1,6 @@
 {
   "name": "geo2city",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "description": "A tiny, portable, offline search and reverse geocode",
   "main": "./cjs/index.js",
   "scripts": {
