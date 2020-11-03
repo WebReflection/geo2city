@@ -2,16 +2,16 @@
 
 [![Downloads](https://img.shields.io/npm/dm/geo2city.svg)](https://www.npmjs.com/package/geo2city) [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC) [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-A tiny, portable, offline search and reverse geocode, also used in [Life Diary ❤️](https://github.com/WebReflection/life-diary#readme), based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
+A tiny, portable, offline search, ip, and reverse geocode, also used in [Life Diary ❤️](https://github.com/WebReflection/life-diary#readme), based on [simplemaps.com](https://simplemaps.com/data/world-cities)'s *World Cities Database* basic data.
 
 ```js
-import {search, reverse} from 'geo2city';
+import {ip, search, reverse} from 'geo2city';
 
 search('Berlin, Germany').then(console.log);
 // result (undefined if not found)
 [ 52.5167, 13.3833 ]
 
-reverse([ 52.52437, 13.41053 ]).then(console.log);
+reverse([52.52437, 13.41053]).then(console.log);
 // result (undefined if not found)
 {
   latitude: 52.5167,
@@ -21,6 +21,20 @@ reverse([ 52.52437, 13.41053 ]).then(console.log);
   flag: '🇩🇪',
   country: 'Germany',
   city: 'Berlin'
+}
+
+// ⚠ requires geoiplookup (via geoip)
+//   and geoip-database-extra
+ip('216.58.197.78').then(console.log);
+// result (undefined if not found)
+{
+  latitude: 37.4,
+  longitude: -122.0796,
+  iso2: 'US',
+  iso3: 'USA',
+  flag: '🇺🇸',
+  country: 'United States',
+  city: 'Mountain View'
 }
 ```
 
@@ -38,6 +52,7 @@ This module takes a different approach, [it ships a pre-optimized *SQLite* datab
   * *26563* cities and related countries
   * country name, *iso2*, *iso3*, and *emoji* flag, per each country
   * reverse search via `geo2city.reverse([latitude, longitude])` with *nearest city* approximation
+  * IPv4 reverse search via `geo2city.ip('1.1.1.1')` with *nearest city* approximation
   * full text search via `geo2city.search('City, Country Name or ISO')` with highest ranked result
 
 

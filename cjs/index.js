@@ -1,6 +1,7 @@
 'use strict';
 
 const {join} = require('path');
+const {exec} = require('child_process');
 
 const {Database} = require('sqlite3');
 const SQLiteTag = require('sqlite-tag');
@@ -61,7 +62,36 @@ exports.reverse = ([latitude, longitude]) => get`
  */
 exports.search = search => get`
   SELECT latitude, longitude FROM search
-  WHERE place MATCH ${search.toLowerCase().split(/\s*,\s*/).join(' OR ').trim()}
+  WHERE place MATCH ${
+    (search.trim() || '?').toLowerCase().split(/\s*,\s*/).join(' OR ')
+  }
   ORDER BY rank
   LIMIT 1
 `.then(geo => geo && [geo.latitude, geo.longitude]);
+
+/**
+ * Given a generic IPv4 address, returns city related data, if any,
+ * or undefined.
+ * @param {string} IPv4 address to search via geoiplookup
+ * @return {Promise<Coordinates | void>}
+ */
+exports.ip = IPv4 => new Promise(resolve => {
+  if (/^(?:\d+\.){3}\d+$/.test(IPv4))
+    exec(`geoiplookup ${IPv4}`, (error, stdout) => {
+      if (!error) {
+        const [_, latitude, longitude] = stdout.match(
+          /(?:[^,]+?,\s*){5}(-?\d+(?:\.\d+)),\s*(-?\d+(?:\.\d+)),/
+        ) || ['', '', ''];
+        if (latitude || longitude) {
+          exports.reverse([
+            parseFloat(latitude),
+            parseFloat(longitude)
+          ]).then(resolve);
+          return;
+        }
+      }
+      resolve();
+    });
+  else
+    resolve();
+});
