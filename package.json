@@ -18,8 +18,8 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
     "extract-zip": "^2.0.1",
-    "sqlite-tag": "^1.1.0",
-    "sqlite3": "^5.0.0"
+    "sqlite-tag": "^1.1.1",
+    "sqlite3": "^4.2.0"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,6 @@
   },
   "homepage": "https://github.com/WebReflection/geo2city#readme",
   "devDependencies": {
-    "@ideditor/country-coder": "^4.0.0"
+    "@ideditor/country-coder": "^5.0.3"
   }
 }
